@@ -38,6 +38,7 @@
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".GalleryUploadActivity"></activity>
+        <activity android:name=".ChangePasswordActivity"></activity>
     </application>
 
 </manifest>

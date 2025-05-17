@@ -2,6 +2,7 @@ package com.example.noac;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         cameraFrame.addView(surfaceView);
         dialogMessage = findViewById(R.id.dialog_message);
 
+
         menuIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,16 +87,20 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
             }
         });
 
-        TextView personalInfo = findViewById(R.id.personal_info);
+//        TextView personalInfo = findViewById(R.id.personal_info);
         TextView about = findViewById(R.id.about);
         TextView logout = findViewById(R.id.logout);
 
+        TextView personalInfo = findViewById(R.id.personal_info);
         personalInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 处理个人信息点击事件
+                Intent intent = new Intent(MainActivity.this, ChangePasswordActivity.class);
+                startActivity(intent);
             }
         });
+
+
 
         about.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +108,11 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
                 // 处理关于点击事件
             }
         });
+
+
+
+
+
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,7 +141,16 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         });
         checkCameraPermission();
     }
-
+    private String getVersionName() {
+        try {
+            PackageManager packageManager = getPackageManager();
+            PackageInfo packageInfo = packageManager.getPackageInfo(getPackageName(), 0);
+            return packageInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return "未知版本号";
+        }
+    }
     private void checkCameraPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {

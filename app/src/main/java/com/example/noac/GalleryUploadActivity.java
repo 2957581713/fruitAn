@@ -94,6 +94,9 @@ public class GalleryUploadActivity extends AppCompatActivity {
             }
         });
 
+
+
+
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,13 +112,15 @@ public class GalleryUploadActivity extends AppCompatActivity {
                 recreate();
             }
         });
-        TextView personalInfo = findViewById(R.id.personal_info);
+//        TextView personalInfo = findViewById(R.id.personal_info);
         TextView about = findViewById(R.id.about);
         TextView logout = findViewById(R.id.logout);
+        TextView personalInfo = findViewById(R.id.personal_info);
         personalInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 处理个人信息点击事件
+                Intent intent = new Intent(GalleryUploadActivity.this, ChangePasswordActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -136,6 +141,7 @@ public class GalleryUploadActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void openGallery() {
         System.out.println("zheli");
