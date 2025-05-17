@@ -1,0 +1,117 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <!-- 上半部分：上传的图片和按钮 -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#EEEEEE">
+
+        <ImageView
+            android:id="@+id/uploaded_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+        <Button
+            android:id="@+id/upload_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上传图片"
+            android:layout_centerInParent="true"/>
+
+        <!-- 右上角圆形菜单按钮 -->
+        <ImageView
+            android:id="@+id/menu_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="16dp"
+            android:background="@drawable/circle_background"
+            android:src="@drawable/ssss"
+            android:clickable="true"/>
+
+        <!-- 下拉菜单，初始不可见 -->
+
+        <LinearLayout
+            android:id="@+id/dropdown_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="16dp"
+            android:background="@android:color/white"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/personal_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="个人信息"/>
+
+            <TextView
+                android:id="@+id/about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="关于"/>
+
+            <TextView
+                android:id="@+id/logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="退出登录"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+    <!-- 下半部分：后端回传的图片 -->
+    <ImageView
+        android:id="@+id/backend_image"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scaleType="centerCrop"
+        android:background="#EEEEEE" />
+
+    <!-- 最后一行：显示后端返回的 message -->
+    <TextView
+        android:id="@+id/backend_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textColor="#000000"
+        android:background="#E0E0E0" />
+
+    <!-- 底部导航栏 -->
+    <LinearLayout
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/camera_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="摄像头页面" />
+
+        <Button
+            android:id="@+id/gallery_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="相册上传页面" />
+    </LinearLayout>
+</LinearLayout>

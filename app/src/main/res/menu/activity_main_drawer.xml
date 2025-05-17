@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:title="主页"
+            app:showAsAction="never"
+            app:icon="@drawable/ic_home_24dp" />
+        <item
+            android:id="@+id/nav_personal_info"
+            android:title="个人信息"
+            app:showAsAction="never"
+            app:icon="@drawable/ic_home_24dp" />
+        <item
+            android:id="@+id/nav_about"
+            android:title="关于"
+            app:showAsAction="never"
+            app:icon="@drawable/ic_home_24dp" />
+    </group>
+</menu>

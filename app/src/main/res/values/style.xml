@@ -1,0 +1,25 @@
+<resources>
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- 应用主题相关设置 -->
+    </style>
+
+    <style name="RoundedEditTextStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="shapeAppearance">@style/RoundedShape</item>
+    </style>
+    <style name="RoundedEditTextStyleRegister" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="shapeAppearance">@style/RoundedEditTextStyleRegister</item>
+    </style>
+
+
+    <style name="RoundedButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="shapeAppearance">@style/RoundedShape</item>
+    </style>
+
+    <style name="RoundedShape">
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="RoundedShapeRegister">
+        <item name="cornerSize">6dp</item>
+    </style>
+</resources>
