@@ -21,7 +21,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     private EditText etNewPassword;
     private EditText etConfirmNewPassword;
     private Button btnChangePassword;
-    private static final String CHANGE_PASSWORD_URL = "http://10.180.116.93:8000/member/change_password"; // 替换为实际的后端修改密码接口地址
+    private static final String CHANGE_PASSWORD_URL = "http://10.0.2.2:8000/member/changePassword"; // 替换为实际的后端修改密码接口地址
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +56,13 @@ public class ChangePasswordActivity extends AppCompatActivity {
     }
 
     private void changePassword(String oldPassword, String newPassword) {
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new TokenInterceptor(this))
+                .build();
 
         FormBody formBody = new FormBody.Builder()
-                .add("old_password", oldPassword)
-                .add("new_password", newPassword)
+                .add("oldPassword", oldPassword)
+                .add("newPassword", newPassword)
                 .build();
 
         Request request = new Request.Builder()
@@ -96,6 +98,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
                             }
                         });
                     } else {
+                        if (response.code() == 401) { // 假设 401 表示 token 校验失败
+                            goToLoginPage();
+                        }
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -104,6 +109,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
                         });
                     }
                 } else {
+                    if (response.code() == 401) { // 假设 401 表示 token 校验失败
+                        goToLoginPage();
+                    }
                     Log.e("ChangePasswordActivity", "Server returned error code: " + response.code());
                     runOnUiThread(new Runnable() {
                         @Override
@@ -114,5 +122,11 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void goToLoginPage() {
+        Intent intent = new Intent(ChangePasswordActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

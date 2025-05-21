@@ -30,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etConfirmPassword;
     private Button btnRegister;
     private Button btnGoToLogin;
-    private static final String REGISTER_URL = "http://10.180.116.93:8000/member/register";
+    private static final String REGISTER_URL = "http://10.0.2.2:8000/member/register";
     private static final String PHONE_REGEX = "^1[3-9]\\d{9}$";
     private static final Pattern PHONE_PATTERN = Pattern.compile(PHONE_REGEX);
     private String verifyCodeStr;

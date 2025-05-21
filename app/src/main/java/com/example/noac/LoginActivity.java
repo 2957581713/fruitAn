@@ -1,6 +1,7 @@
 package com.example.noac;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,7 +22,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etPassword;
     private Button btnLogin;
     private Button btnGoToRegister;
-    private static final String LOGIN_URL = "http:///10.180.116.93:8000/member/login"; // 替换为实际的后端登录接口地址
+    private static final String LOGIN_URL = "http://10.0.2.2:8000/member/login"; // 替换为实际的后端登录接口地址
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,8 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.et_password);
         btnLogin = findViewById(R.id.btn_login);
         btnGoToRegister = findViewById(R.id.btn_go_to_register);
+        sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE);
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,6 +107,11 @@ public class LoginActivity extends AppCompatActivity {
                     CommonResp<String> commonResp = gson.fromJson(responseData, CommonResp.class);
 
                     if (commonResp.isSuccess()) { // 假设后端返回 "true" 表示登录成功
+                        // 保存 token
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("token", commonResp.getContent());
+                        editor.apply();
+
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

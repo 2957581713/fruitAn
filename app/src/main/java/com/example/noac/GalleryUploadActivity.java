@@ -53,7 +53,7 @@ public class GalleryUploadActivity extends AppCompatActivity {
     private ImageView menuIcon;
     private LinearLayout dropdownMenu;
 
-    private static final String API_URL = "http://10.180.116.93:8000/yolo/yolo/detectImage"; // 替换为实际的后端 API 地址
+    private static final String API_URL = "http://10.0.2.2:8000/yolo/yolo/detectImage"; // 替换为实际的后端 API 地址
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,9 +94,6 @@ public class GalleryUploadActivity extends AppCompatActivity {
             }
         });
 
-
-
-
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,10 +109,10 @@ public class GalleryUploadActivity extends AppCompatActivity {
                 recreate();
             }
         });
-//        TextView personalInfo = findViewById(R.id.personal_info);
+
+        TextView personalInfo = findViewById(R.id.personal_info);
         TextView about = findViewById(R.id.about);
         TextView logout = findViewById(R.id.logout);
-        TextView personalInfo = findViewById(R.id.personal_info);
         personalInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,12 +139,12 @@ public class GalleryUploadActivity extends AppCompatActivity {
         });
     }
 
-
     private void openGallery() {
         System.out.println("zheli");
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -161,6 +158,7 @@ public class GalleryUploadActivity extends AppCompatActivity {
             }
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -185,7 +183,9 @@ public class GalleryUploadActivity extends AppCompatActivity {
     }
 
     private void sendImageToBackend(String picturePath) {
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new TokenInterceptor(this))
+                .build();
 
         File file = new File(picturePath);
         RequestBody requestBody = new MultipartBody.Builder()
@@ -249,6 +249,9 @@ public class GalleryUploadActivity extends AppCompatActivity {
                         });
                     }
                 } else {
+                    if (response.code() == 401) { // 假设 401 表示 token 校验失败
+                        goToLoginPage();
+                    }
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -258,5 +261,11 @@ public class GalleryUploadActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void goToLoginPage() {
+        Intent intent = new Intent(GalleryUploadActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     private Button galleryButton;
     private TextView dialogMessage;
 
-    private static final String API_URL = "http://10.180.116.93:8000/yolo/yolo/detectImage"; // 替换为实际的后端 API 地址
+    private static final String API_URL = "http://10.0.2.2:8000/yolo/yolo/detectImage"; // 替换为实际的后端 API 地址
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
